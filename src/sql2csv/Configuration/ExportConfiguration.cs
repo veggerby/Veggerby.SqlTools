@@ -30,7 +30,7 @@ namespace Veggerby.Sql2Csv.Configuration
         public IEnumerable<string> Filter => !string.IsNullOrEmpty(FilterFileName) && File.Exists(FilterFileName) ? File.ReadAllLines(FilterFileName) : null;
         public int? FilterColumnIndex => _options.FilterColumnOption.HasValue() ? _options.FilterColumnOption.Value().ParseInt() : 1;
         public string FilterColumnName => _options.FilterColumnOption.HasValue() && FilterColumnIndex == null ? _options.FilterColumnOption.Value() : null;
-        public string OutputFileName => _options.OutputFileOption.Value();
+        public string OutputFileName => _options.OutputFileOption.HasValue() ? _options.OutputFileOption.Value() : _configFile?.OutputFile;
 
         public int? Limit => _options.LimitOptions.HasValue() ? (int?)int.Parse(_options.LimitOptions.Value()) : null;
 

@@ -23,6 +23,9 @@ namespace Veggerby.Sql2Csv.Configuration
         [JsonProperty("query")]
         public string InputSqlQuery { get; set; }
 
+        [JsonProperty("output")]
+        public string OutputFile { get; set; }
+
         [JsonProperty("connections")]
         public IDictionary<string, string> Connections { get; set; }
 
