@@ -72,33 +72,6 @@ namespace Veggerby.Sql2Csv.Configuration
             return new ColumnValue(column, rawValue);
         }
 
-        public static string GetValueAsString(this IDataReader reader, ColumnDefinition column)
-        {
-            if (reader.IsDBNull(column.Index))
-            {
-                return null;
-            }
-
-            switch (column.Type.Name.ToLowerInvariant())
-            {
-                case "string":
-                    return reader.GetString(column.Index);
-                case "guid":
-                    return reader.GetGuid(column.Index).ToString();
-                case "datetime":
-                    return reader.GetDateTime(column.Index).ToString("o");
-                case "int":
-                case "int32":
-                    return reader.GetInt32(column.Index).ToString(CultureInfo.InvariantCulture);
-                case "double":
-                    return reader.GetDouble(column.Index).ToString(CultureInfo.InvariantCulture);
-                case "boolean":
-                    return reader.GetBoolean(column.Index) ? "TRUE" : "FALSE";
-            }
-
-            throw new Exception($"Column {column.Name} with type {column.Type.Name} is not mapped");
-        }
-
         public static string GetValueAsString(this ColumnValue value)
         {
             if (value.RawValue == null)
@@ -139,6 +112,11 @@ namespace Veggerby.Sql2Csv.Configuration
             if (value.RawValue is bool)
             {
                 return (bool)value.RawValue ? "TRUE" : "FALSE";
+            }
+
+            if (value.RawValue is decimal)
+            {
+                return ((decimal)value.RawValue).ToString(CultureInfo.InvariantCulture);
             }
 
             throw new Exception($"Column {value.Column.Name} with type {value.Column.Type.Name} is not mapped");
