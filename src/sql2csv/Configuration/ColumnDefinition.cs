@@ -12,7 +12,9 @@ namespace Veggerby.Sql2Csv.Configuration
     public class ColumnDefinition
     {
         public int Index { get; }
+
         public string Name { get; }
+
         public Type Type { get; }
 
         public ColumnDefinition(int index, string name, Type type)

@@ -64,9 +64,9 @@ namespace Veggerby.Sql2Csv.Configuration
         {
             var connectionOptionValue = _options.ConnectionOption.Value();
 
-            if (_configFile?.Connections != null && _configFile.Connections.Any(x => x.Name.Equals(connectionOptionValue)))
+            if (_configFile?.Connections != null && _configFile.Connections.Any(x => x.Key.Equals(connectionOptionValue)))
             {
-                return _configFile.Connections.First(x => x.Name.Equals(connectionOptionValue)).Connection;
+                return _configFile.Connections.First(x => x.Key.Equals(connectionOptionValue)).Value;
             }
 
             return connectionOptionValue;
